@@ -1,0 +1,255 @@
+/* Reviews Page Styles */
+.reviews-page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+  
+  .reviews-page-container h1 {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+    color: var(--primary-dark);
+  }
+  
+  .reviews-section {
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .reviews-section h2 {
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .reviews-section h2 span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    margin-left: var(--spacing-sm);
+  }
+  
+  .papers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .paper-card {
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    background-color: var(--background-paper);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .paper-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .paper-card.completed {
+    border-left: 4px solid var(--secondary);
+  }
+  
+  .paper-card h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary);
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+  
+  .paper-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+  
+  .category {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(26, 115, 232, 0.1);
+    color: var(--primary);
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  
+  .assigned-date, .completed-date {
+    font-style: italic;
+  }
+  
+  .paper-abstract {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .paper-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-light);
+  }
+  
+  .review-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .review-status::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: var(--spacing-xs);
+  }
+  
+  .status-assigned {
+    background-color: rgba(245, 124, 0, 0.1);
+    color: var(--warning);
+  }
+  
+  .status-assigned::before {
+    background-color: var(--warning);
+  }
+  
+  .status-in_progress {
+    background-color: rgba(26, 115, 232, 0.1);
+    color: var(--primary);
+  }
+  
+  .status-in_progress::before {
+    background-color: var(--primary);
+  }
+  
+  .status-completed {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: var(--secondary);
+  }
+  
+  .status-completed::before {
+    background-color: var(--secondary);
+  }
+  
+  .status-declined {
+    background-color: rgba(211, 47, 47, 0.1);
+    color: var(--danger);
+  }
+  
+  .status-declined::before {
+    background-color: var(--danger);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    background-color: rgba(26, 115, 232, 0.05);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    border: 1px dashed var(--border-light);
+  }
+  
+  .reviews-help {
+    margin-top: var(--spacing-xxl);
+    padding: var(--spacing-lg);
+    background-color: rgba(25, 118, 210, 0.05);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary);
+  }
+  
+  .reviews-help h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-dark);
+    font-size: 1.2rem;
+  }
+  
+  .reviews-help p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  
+  .reviews-help ul {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+  }
+  
+  .reviews-help li {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  
+  .reviews-help li::marker {
+    color: var(--primary);
+  }
+  
+  /* Paper action button */
+  .paper-footer .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Animation for new assignments */
+  @keyframes highlight {
+    0% { 
+      box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+    }
+    50% { 
+      box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.4);
+    }
+    100% { 
+      box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+    }
+  }
+  
+  .paper-card.new {
+    animation: highlight 2s ease-in-out 3;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .papers-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .paper-footer {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      align-items: flex-start;
+    }
+    
+    .paper-footer .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }

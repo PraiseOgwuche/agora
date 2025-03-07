@@ -1,0 +1,195 @@
+/* About Page Styles */
+.about-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+  
+  .about-page h1 {
+    margin-bottom: var(--spacing-xl);
+    color: var(--primary-dark);
+    font-size: 2.25rem;
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .about-page p {
+    line-height: 1.7;
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+  }
+  
+  .about-page h2 {
+    margin-top: var(--spacing-xxl);
+    margin-bottom: var(--spacing-lg);
+    color: var(--primary-dark);
+    font-size: 1.75rem;
+  }
+  
+  .about-page ul {
+    margin-bottom: var(--spacing-xl);
+    padding-left: var(--spacing-xl);
+  }
+  
+  .about-page li {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  
+  .about-page li::marker {
+    color: var(--primary);
+  }
+  
+  .about-section {
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .about-section:first-of-type p:first-of-type {
+    font-size: 1.2rem;
+    color: var(--primary-dark);
+    line-height: 1.6;
+  }
+  
+  .mission-section {
+    background-color: rgba(26, 115, 232, 0.05);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl) 0;
+    border-left: 4px solid var(--primary);
+  }
+  
+  .mission-section h2 {
+    margin-top: 0;
+    color: var(--primary);
+  }
+  
+  .mission-section p {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-style: italic;
+  }
+  
+  .team-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .team-member {
+    background-color: var(--background-paper);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-standard), box-shadow var(--transition-standard);
+    border-top: 3px solid var(--primary);
+  }
+  
+  .team-member:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .team-member h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-dark);
+    font-size: 1.25rem;
+  }
+  
+  .team-member p {
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  
+  .team-member .role {
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .contact-section {
+    background-color: var(--background-paper);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .contact-section h2 {
+    margin-top: 0;
+    color: var(--primary-dark);
+  }
+  
+  .contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+  }
+  
+  .contact-method {
+    text-align: center;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    background-color: rgba(26, 115, 232, 0.05);
+    transition: transform var(--transition-standard);
+  }
+  
+  .contact-method:hover {
+    transform: translateY(-2px);
+  }
+  
+  .contact-method h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary);
+    font-size: 1.1rem;
+  }
+  
+  .contact-method p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+  
+  .icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(26, 115, 232, 0.1);
+    border-radius: 50%;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .icon {
+    font-size: 1.5rem;
+    color: var(--primary);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .about-page h1 {
+      font-size: 1.75rem;
+    }
+    
+    .about-page h2 {
+      font-size: 1.5rem;
+    }
+    
+    .mission-section {
+      padding: var(--spacing-lg);
+    }
+    
+    .team-members {
+      grid-template-columns: 1fr;
+    }
+    
+    .contact-methods {
+      grid-template-columns: 1fr;
+    }
+  }
