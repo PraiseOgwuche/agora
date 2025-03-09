@@ -12,7 +12,7 @@ This platform enables students and faculty to experience the full academic publi
 
 ## Features
 
-### Currently Implemented
+### Core Features
 
 1. **User Authentication**
    - Registration and login with email constraints (Minerva domains only)
@@ -35,37 +35,64 @@ This platform enables students and faculty to experience the full academic publi
    - View PDF using secure signed URLs
    - Author actions based on paper status
 
-5. **Backend API**
-   - Routes for papers, categories, user data
-   - Supabase integration for database and storage
-   - Basic security with Row Level Security (RLS) policies
-
-### Coming Soon
-
-1. **Peer Review System**
+5. **Peer Review System**
    - Reviewer assignment workflow
    - Review submission and feedback
    - Review dashboard for papers assigned to reviewers
 
-2. **Paper Status Workflow**
+6. **Paper Status Workflow**
    - Submit for review functionality
    - Paper approval/rejection process
    - Status change notifications
 
-3. **Categories and Search**
+7. **Categories and Search**
    - Category browsing
-   - Search functionality
-   - Filter papers by various criteria
+   - Search functionality with filters
+   - Browse papers by discipline
 
-4. **Community Features**
-   - Likes/upvotes for papers
-   - Feedback mechanism
-   - Comments/discussion section
+### Community Features
 
-5. **Access Control for Non-Minervans**
-   - Shareable links for external access
-   - Restricted access to only shared papers
-   - Read-only PDF viewing for external users
+1. **Social Engagement**
+   - Like/upvote papers to show appreciation
+   - Comment on papers to discuss findings
+   - Provide constructive feedback to authors
+
+2. **Notifications**
+   - Real-time notifications for likes, comments, and feedback
+   - Status change notifications
+   - Review assignment notifications
+
+3. **Trending Papers**
+   - View most popular papers based on engagement metrics
+   - Filter trending papers by category and time period
+   - Track view counts for published papers
+
+4. **External Sharing**
+   - Generate shareable links for non-Minerva users
+   - Control access permissions for shared papers
+   - Track views from external sources
+
+### Coming Soon
+
+1. **Personalized Paper Recommendations**
+   - Recommendations based on reading history
+   - Suggestions based on academic interests
+   - Discover related research
+
+2. **Enhanced Search**
+   - Full-text search across papers, comments, and feedback
+   - Advanced filtering options
+   - Sort by relevance, date, or popularity
+
+3. **Analytics Dashboard**
+   - Detailed engagement statistics for authors
+   - Track views, likes, and comments over time
+   - Visualization of paper impact
+
+4. **User Experience Improvements**
+   - Optimistic UI updates
+   - Improved loading states
+   - Animations and transitions
 
 ## Tech Stack
 
@@ -74,6 +101,7 @@ This platform enables students and faculty to experience the full academic publi
 - **Database**: PostgreSQL (via Supabase)
 - **Storage**: Supabase Storage
 - **Authentication**: Supabase Auth
+- **Real-time**: Supabase Realtime
 - **Styling**: Custom CSS with responsive design
 
 ## Project Structure
@@ -82,16 +110,34 @@ This platform enables students and faculty to experience the full academic publi
 agora/
 ├── backend/
 │   ├── app.py               # Main Flask application
-│   ├── models/              # Database models
-│   ├── routes/              # API routes
-│   ├── services/            # Business logic
-│   └── utils/               # Utility functions
+│   ├── requirements.txt     # Python dependencies
+│   └── ... 
 ├── frontend/
 │   ├── public/              # Static files
 │   └── src/
 │       ├── components/      # React components
-│       ├── contexts/        # React contexts (Auth)
+│       │   ├── AboutPage.js
+│       │   ├── Auth.js
+│       │   ├── CategoriesPage.js
+│       │   ├── DashboardPage.js
+│       │   ├── HomePage.js
+│       │   ├── NotificationsComponent.js
+│       │   ├── PaperComments.js
+│       │   ├── PaperDetailsPage.js
+│       │   ├── PaperFeedback.js
+│       │   ├── PaperLikeButton.js
+│       │   ├── ReviewAssignmentPage.js
+│       │   ├── ReviewsPage.js
+│       │   ├── SearchBar.js
+│       │   ├── SearchPage.js
+│       │   ├── SharedLinksManager.js
+│       │   ├── SharedPaperView.js
+│       │   ├── SubmitPaperPage.js
+│       │   └── TrendingPapers.js
+│       ├── contexts/        # React contexts
+│       │   └── AuthContext.js
 │       ├── styles/          # CSS styles
+│       ├── utils/           # Utility functions
 │       ├── App.js           # Main React component
 │       └── index.js         # React entry point
 └── README.md                # This file
@@ -162,18 +208,22 @@ agora/
 
 5. The application will be available at `http://localhost:3000`
 
-## Database Setup
+## Database Schema
 
-1. Create the following tables in your Supabase project:
-   - profiles
-   - papers
-   - categories
-   - paper_authors
-   - figures
-   - reviews
-   - review_assignments
+The application uses the following main tables:
 
-2. Set up appropriate RLS policies for each table.
+1. **profiles** - User profiles and information
+2. **papers** - Academic papers with metadata
+3. **categories** - Research disciplines and categories
+4. **paper_authors** - Mapping between papers and authors
+5. **paper_likes** - Paper likes/upvotes
+6. **paper_comments** - Comments on papers
+7. **paper_feedback** - Constructive feedback on papers
+8. **paper_views** - View tracking for analytics
+9. **paper_shared_links** - External sharing links
+10. **reviews** - Peer reviews of papers
+11. **review_assignments** - Reviewer assignments
+12. **notifications** - User notifications
 
 ## Deployment
 
@@ -189,8 +239,8 @@ This project is currently in development. If you're a Minerva student or faculty
 
 ## Contact
 
-For questions or feedback, please contact [your-email@minerva.edu](mailto:praiseogwuche@minerva.edu).
+For questions or feedback, please contact [praiseogwuche@minerva.edu](mailto:praiseogwuche@minerva.edu).
 
 ---
 
-© 2025 Agora - All rights reserved
+© 2025 Agora - Minerva University Academic Journal Platform - All rights reserved
