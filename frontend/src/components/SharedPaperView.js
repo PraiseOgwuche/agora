@@ -1,6 +1,6 @@
 // src/components/SharedPaperView.js
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import PaperComments from './PaperComments';
 import '../styles/SharedPaperView.css';
