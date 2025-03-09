@@ -11,8 +11,10 @@ function HomePage() {
   const [errorDetails, setErrorDetails] = useState('');
 
   useEffect(() => {
-    // Try multiple approaches to connect to the backend
-    const backendUrl = process.env.REACT_APP_API_URL || '/api/hello';
+    // Use environment variable for the backend URL
+    const backendUrl = process.env.REACT_APP_API_URL 
+      ? `${process.env.REACT_APP_API_URL}/api/hello` 
+      : '/api/hello';
     
     console.log("Attempting to connect to backend at:", backendUrl);
     
@@ -24,25 +26,15 @@ function HomePage() {
         setError(false);
       })
       .catch(error => {
-        console.error('First attempt failed, trying direct URL...');
+        console.error('Failed to connect to backend');
+        console.error(error);
         
-        // Try with an explicit URL as fallback
-        axios.get('http://localhost:5000/api/hello')
-          .then(response => {
-            console.log("Second attempt succeeded:", response.data);
-            setMessage(response.data.message);
-            setLoading(false);
-            setError(false);
-          })
-          .catch(secondError => {
-            console.error('Both connection attempts failed');
-            let errorMsg = 'Could not connect to backend service';
-            
-            setErrorDetails(errorMsg);
-            setMessage('Welcome to Agora!');
-            setError(true);
-            setLoading(false);
-          });
+        let errorMsg = 'Could not connect to backend service';
+        
+        setErrorDetails(errorMsg);
+        setMessage('Welcome to Agora!');
+        setError(true);
+        setLoading(false);
       });
   }, []);
 
