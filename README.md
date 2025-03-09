@@ -2,6 +2,9 @@
 
 Agora is a modern academic journal platform designed specifically for Minerva University students and faculty. Named after the ancient Greek gathering places for ideas and discourse, Agora serves as a digital commons where the Minerva academic community can share research, provide peer feedback, and engage with scholarly work.
 
+![Screenshot 2025-03-08 at 5 51 22 PM](https://github.com/user-attachments/assets/c96de80a-e190-4972-b903-cbb5f3ad663f)
+
+
 ## Project Overview
 
 This platform enables students and faculty to experience the full academic publishing process, from submission to peer review and final publication. Agora is built with a focus on:
