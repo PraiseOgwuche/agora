@@ -1,0 +1,197 @@
+/* src/styles/SharedPaperView.css */
+.shared-paper-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+  
+  .shared-header {
+    background-color: var(--primary-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+  }
+  
+  .shared-badge {
+    background-color: var(--primary);
+    color: white;
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  
+  .shared-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+  
+  .shared-info p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+  
+  .join-link {
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    background-color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--primary);
+    transition: all var(--transition-standard);
+  }
+  
+  .join-link:hover {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .paper-details {
+    background-color: var(--background-paper);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .paper-title {
+    font-size: 2rem;
+    color: var(--primary-dark);
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.3;
+  }
+  
+  .paper-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .meta-item {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+  
+  .meta-item strong {
+    color: var(--text-primary);
+  }
+  
+  .paper-authors {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .paper-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .paper-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .tab-button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-standard);
+  }
+  
+  .tab-button:hover {
+    color: var(--primary);
+  }
+  
+  .tab-button.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  
+  .paper-content {
+    min-height: 400px;
+  }
+  
+  .paper-abstract {
+    line-height: 1.7;
+  }
+  
+  .paper-abstract h2 {
+    color: var(--primary-dark);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .paper-pdf-container {
+    width: 100%;
+    height: 700px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  
+  .paper-pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .shared-footer {
+    margin-top: var(--spacing-xxl);
+    padding-top: var(--spacing-lg);
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-light);
+  }
+  
+  .shared-footer p {
+    margin: 0;
+  }
+  
+  .explore-link {
+    color: var(--primary);
+    text-decoration: none;
+    margin-left: var(--spacing-sm);
+  }
+  
+  .explore-link:hover {
+    text-decoration: underline;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--text-secondary);
+  }
+  
+  .error-message {
+    background-color: rgba(211, 47, 47, 0.1);
+    color: var(--danger);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    text-align: center;
+    max-width: 600px;
+    margin: var(--spacing-xxl) auto;
+  }
+  
+  .not-found {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+  }

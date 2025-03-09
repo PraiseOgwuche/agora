@@ -10,6 +10,11 @@ import ReviewAssignmentPage from './components/ReviewAssignmentPage';
 import ReviewsPage from './components/ReviewsPage';
 import Auth from './components/Auth';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import NotificationsComponent from './components/NotificationsComponent';
+import CategoriesPage from './components/CategoriesPage';
+import SearchPage from './components/SearchPage';
+import SearchBar from './components/SearchBar';
+import SharedPaperView from './components/SharedPaperView';
 
 // Protected route component
 function ProtectedRoute({ children }) {
@@ -49,24 +54,33 @@ function AppContent() {
       <div className="app-container">
         <nav className="navbar">
           <div className="logo">Agora</div>
-          <ul className="nav-links">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            {user && (
-              <>
-                <li><Link to="/dashboard">Dashboard</Link></li>
-                <li><Link to="/reviews">My Reviews</Link></li>
-                {userProfile?.user_type === 'staff' && (
-                  <li><Link to="/admin">Admin</Link></li>
-                )}
-              </>
-            )}
-            {user ? (
-              <li><button onClick={signOut} className="sign-out-btn">Sign Out</button></li>
-            ) : (
-              <li><Link to="/auth">Sign In</Link></li>
-            )}
-          </ul>
+          <div className="navbar-content">
+            <ul className="nav-links">
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/about">About</Link></li>
+              <li><Link to="/categories">Categories</Link></li>
+              {user && (
+                <>
+                  <li><Link to="/dashboard">Dashboard</Link></li>
+                  <li><Link to="/reviews">My Reviews</Link></li>
+                  {userProfile?.user_type === 'staff' && (
+                    <li><Link to="/admin">Admin</Link></li>
+                  )}
+                </>
+              )}
+            </ul>
+            <div className="navbar-actions">
+              <SearchBar />
+              {user ? (
+                <>
+                  <NotificationsComponent />
+                  <button onClick={signOut} className="sign-out-btn">Sign Out</button>
+                </>
+              ) : (
+                <Link to="/auth" className="sign-in-link">Sign In</Link>
+              )}
+            </div>
+          </div>
         </nav>
 
         <div className="content">
@@ -74,7 +88,9 @@ function AppContent() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/auth" element={<Auth />} />
-            
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/shared/:accessKey" element={<SharedPaperView />} />
             {/* Protected Routes */}
             <Route 
               path="/dashboard" 
@@ -97,9 +113,7 @@ function AppContent() {
             <Route 
               path="/papers/:paperId" 
               element={
-                <ProtectedRoute>
-                  <PaperDetailsPage />
-                </ProtectedRoute>
+                <PaperDetailsPage />
               } 
             />
             

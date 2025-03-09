@@ -253,3 +253,42 @@
       text-align: center;
     }
   }
+
+  .paper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+  
+  .paper-status {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  
+  .status-draft {
+    background-color: rgba(95, 99, 104, 0.1);
+    color: #5f6368;
+  }
+  
+  .status-submitted {
+    background-color: rgba(26, 115, 232, 0.1);
+    color: #1a73e8;
+  }
+  
+  .status-under_review {
+    background-color: rgba(245, 124, 0, 0.1);
+    color: #f57c00;
+  }
+  
+  .status-published {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+  
+  .status-rejected {
+    background-color: rgba(211, 47, 47, 0.1);
+    color: #d32f2f;
+  }

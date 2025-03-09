@@ -194,3 +194,102 @@
       min-height: auto;
     }
   }
+
+  /* Add to Home.css */
+.explore-section {
+  margin: var(--spacing-xxl) 0;
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: var(--background-paper);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.explore-section h2 {
+  color: var(--primary-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+.explore-section p {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--text-secondary);
+}
+
+.explore-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.categories-preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.category-tag {
+  padding: 0.5rem 1rem;
+  background-color: rgba(26, 115, 232, 0.1);
+  color: var(--primary);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: all var(--transition-standard);
+  cursor: pointer;
+}
+
+.category-tag:hover {
+  background-color: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .explore-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .explore-buttons .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Trending Papers Section styles for Home.css */
+.trending-papers-section {
+  margin: var(--spacing-xxl) 0;
+  padding: var(--spacing-xl) var(--spacing-md);
+  background-color: var(--background-paper);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.trending-papers-section h2 {
+  font-size: 2rem;
+  color: var(--primary-dark);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.trending-papers-section p {
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto var(--spacing-lg);
+  text-align: center;
+}
+
+/* Responsive adjustments for trending papers section */
+@media (max-width: 768px) {
+  .trending-papers-section {
+    padding: var(--spacing-lg) var(--spacing-sm);
+  }
+  
+  .trending-papers-section h2 {
+    font-size: 1.6rem;
+  }
+}

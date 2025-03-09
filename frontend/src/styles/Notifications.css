@@ -1,0 +1,170 @@
+/* src/styles/Notifications.css */
+.notifications-container {
+    position: relative;
+  }
+  
+  .notifications-button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem;
+  }
+  
+  .notification-icon {
+    font-size: 1.5rem;
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--danger);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .notifications-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 350px;
+    max-height: 400px;
+    background-color: var(--background-paper);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    overflow: hidden;
+  }
+  
+  .notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .notifications-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+  
+  .mark-all-read {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .notifications-list {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+  
+  .notification-item {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: background-color var(--transition-standard);
+  }
+  
+  .notification-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .notification-item.unread {
+    background-color: rgba(26, 115, 232, 0.1);
+    border-left: 3px solid var(--primary);
+  }
+  
+  .notification-item a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .notification-content {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.4;
+  }
+  
+  .notification-time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+  
+  .notification-loading,
+  .no-notifications {
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: var(--text-secondary);
+  }
+
+  /* Add to src/styles/Notifications.css */
+
+/* Style for notification type icons */
+.notification-type-icon {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+/* Improve spacing for long notification text */
+.notification-content {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.4;
+  word-break: break-word;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Add specific styles for different notification types */
+.notification-item[data-type="like"] {
+  border-left: 3px solid #4caf50;
+}
+
+.notification-item[data-type="comment"] {
+  border-left: 3px solid #2196f3;
+}
+
+.notification-item[data-type="feedback"] {
+  border-left: 3px solid #ff9800;
+}
+
+/* Enhance scrollbar in notifications list */
+.notifications-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notifications-list::-webkit-scrollbar-track {
+  background: var(--background-light);
+  border-radius: 4px;
+}
+
+.notifications-list::-webkit-scrollbar-thumb {
+  background-color: var(--border-light);
+  border-radius: 4px;
+}
+
+/* Animation for new notifications */
+@keyframes highlight {
+  0% { background-color: rgba(26, 115, 232, 0.3); }
+  100% { background-color: rgba(26, 115, 232, 0.1); }
+}
+
+.notification-item.new {
+  animation: highlight 2s ease-out;
+}

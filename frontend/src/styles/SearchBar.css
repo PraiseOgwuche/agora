@@ -1,0 +1,45 @@
+/* Update the SearchBar.css file */
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 36px;
+    background-color: white;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  
+  .search-bar-input {
+    flex: 1;
+    height: 100%;
+    padding: 0 0.75rem;
+    border: none;
+    font-size: 0.9rem;
+    background: transparent;
+  }
+  
+  .search-bar-input:focus {
+    outline: none;
+  }
+  
+  .search-bar-button {
+    height: 100%;
+    width: 36px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .search-bar {
+      width: 100%;
+      max-width: 100%;
+      margin: var(--spacing-sm) 0;
+    }
+  }

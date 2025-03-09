@@ -1,0 +1,43 @@
+/* src/styles/PaperLikeButton.css */
+.paper-like-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .like-button {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.8rem;
+    background-color: var(--background-paper);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-standard);
+  }
+  
+  .like-button:hover {
+    background-color: rgba(26, 115, 232, 0.1);
+  }
+  
+  .like-button.liked {
+    background-color: rgba(26, 115, 232, 0.15);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  
+  .like-icon {
+    font-size: 1.1rem;
+  }
+  
+  .like-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  .like-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }

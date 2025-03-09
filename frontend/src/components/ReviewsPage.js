@@ -1,19 +1,26 @@
+// frontend/src/components/ReviewsPage.js
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/Reviews.css';
 
 function ReviewsPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [assignedPapers, setAssignedPapers] = useState([]);
   const [completedReviews, setCompletedReviews] = useState([]);
+  const [error, setError] = useState(null);
   
   useEffect(() => {
     const fetchReviewAssignments = async () => {
+      if (!user) return;
+      
       try {
         setLoading(true);
+        setError(null);
         
         // Fetch papers assigned to the user for review
         const { data, error } = await supabase
@@ -69,48 +76,64 @@ function ReviewsPage() {
         
       } catch (error) {
         console.error('Error fetching review assignments:', error);
+        setError('Failed to load your review assignments');
       } finally {
         setLoading(false);
       }
     };
     
-    if (user) {
-      fetchReviewAssignments();
-    }
+    fetchReviewAssignments();
   }, [user]);
+  
+  const startReview = (paperId, assignmentId) => {
+    // Navigate to the paper details page with a query parameter to open the review form
+    navigate(`/papers/${paperId}?review=${assignmentId}`);
+  };
   
   return (
     <div className="reviews-page-container">
       <h1>Papers to Review</h1>
+      
+      {error && <div className="error-message">{error}</div>}
       
       {loading ? (
         <div className="loading">Loading your assigned papers...</div>
       ) : (
         <>
           <div className="reviews-section">
-            <h2>Pending Reviews ({assignedPapers.length})</h2>
+            <h2>Pending Reviews <span>{assignedPapers.length}</span></h2>
             {assignedPapers.length > 0 ? (
               <div className="papers-grid">
-                {assignedPapers.map((assignment) => (
-                  <div key={assignment.id} className="paper-card">
+              {assignedPapers.map((assignment) => (
+                <div key={assignment.id} className="paper-card">
+                  <div className="paper-header">
                     <h3>{assignment.paper.title}</h3>
-                    <div className="paper-meta">
-                      <span className="category">{assignment.paper.category}</span>
-                      <span className="assigned-date">
-                        Assigned: {new Date(assignment.assigned_at).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <p className="paper-abstract">{assignment.paper.abstract.substring(0, 150)}...</p>
-                    <div className="paper-footer">
-                      <span className={`review-status status-${assignment.status}`}>
-                        {assignment.status}
-                      </span>
-                      <Link to={`/papers/${assignment.paper.id}`} className="btn primary">
-                        Review Paper
-                      </Link>
-                    </div>
+                    {assignment.paper.status && (
+                      <div className={`paper-status status-${assignment.paper.status}`}>
+                        {assignment.paper.status}
+                      </div>
+                    )}
                   </div>
-                ))}
+                  <div className="paper-meta">
+                    <span className="category">{assignment.paper.category}</span>
+                    <span className="assigned-date">
+                      Assigned: {new Date(assignment.assigned_at).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="paper-abstract">{assignment.paper.abstract}</p>
+                  <div className="paper-footer">
+                    <span className={`review-status status-${assignment.status}`}>
+                      {assignment.status}
+                    </span>
+                    <button 
+                      className="btn primary"
+                      onClick={() => startReview(assignment.paper.id, assignment.id)}
+                    >
+                      Start Review
+                    </button>
+                  </div>
+                </div>
+              ))}
               </div>
             ) : (
               <div className="empty-state">
@@ -121,18 +144,25 @@ function ReviewsPage() {
           
           {completedReviews.length > 0 && (
             <div className="reviews-section">
-              <h2>Completed Reviews ({completedReviews.length})</h2>
+              <h2>Completed Reviews <span>{completedReviews.length}</span></h2>
               <div className="papers-grid">
                 {completedReviews.map((assignment) => (
                   <div key={assignment.id} className="paper-card completed">
-                    <h3>{assignment.paper.title}</h3>
+                    <div className="paper-header">
+                      <h3>{assignment.paper.title}</h3>
+                      {assignment.paper.status && (
+                        <div className={`paper-status status-${assignment.paper.status}`}>
+                          {assignment.paper.status}
+                        </div>
+                      )}
+                    </div>
                     <div className="paper-meta">
                       <span className="category">{assignment.paper.category}</span>
                       <span className="completed-date">
-                        Completed: {new Date(assignment.assigned_at).toLocaleDateString()}
+                        Reviewed: {new Date(assignment.assigned_at).toLocaleDateString()}
                       </span>
                     </div>
-                    <p className="paper-abstract">{assignment.paper.abstract.substring(0, 150)}...</p>
+                    <p className="paper-abstract">{assignment.paper.abstract}</p>
                     <div className="paper-footer">
                       <span className="review-status status-completed">Completed</span>
                       <Link to={`/papers/${assignment.paper.id}`} className="btn secondary">

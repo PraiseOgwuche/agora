@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import axios from 'axios';
+import TrendingPapers from './TrendingPapers';
 import '../styles/Home.css';
 
 function HomePage() {
@@ -70,6 +71,13 @@ function HomePage() {
         </div>
       )}
 
+      {/* Add Trending Papers Section */}
+      <section className="trending-papers-section">
+        <h2>Trending Papers</h2>
+        <p>Discover the most-viewed and discussed papers from our community</p>
+        <TrendingPapers limit={6} />
+      </section>
+
       <section className="feature-section">
         <h2>Why Publish with Agora?</h2>
         <div className="feature-grid">
@@ -97,6 +105,26 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="explore-section">
+        <h2>Explore Research</h2>
+        <p>Discover academic papers across various disciplines and find research relevant to your interests.</p>
+        <div className="explore-buttons">
+          <Link to="/categories" className="btn primary">Browse by Category</Link>
+          <Link to="/search" className="btn secondary">Advanced Search</Link>
+        </div>
+        
+        <div className="categories-preview">
+          <div className="category-tag">Biology</div>
+          <div className="category-tag">Computer Science</div>
+          <div className="category-tag">Chemistry</div>
+          <div className="category-tag">Physics</div>
+          <div className="category-tag">Economics</div>
+          <div className="category-tag">Psychology</div>
+          <div className="category-tag">Arts</div>
+          <div className="category-tag">Humanities</div>
+        </div>
+      </section>
+
       <section className="stats-section">
         <h2>Agora in Numbers</h2>
         <div className="stats-grid">
@@ -117,4 +145,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;

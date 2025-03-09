@@ -1,0 +1,245 @@
+/* src/styles/TrendingPapers.css */
+.trending-papers {
+    margin: var(--spacing-xl) auto;
+    max-width: 1200px;
+  }
+  
+  .trending-papers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .trending-papers-header h2 {
+    color: var(--primary-dark);
+    font-size: 1.8rem;
+    margin: 0;
+  }
+  
+  .trending-filters {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .filter-group label {
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  
+  .category-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    background-color: var(--background-paper);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    min-width: 180px;
+  }
+  
+  .time-buttons {
+    display: flex;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  
+  .time-buttons button {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-standard);
+  }
+  
+  .time-buttons button:not(:last-child) {
+    border-right: 1px solid var(--border-light);
+  }
+  
+  .time-buttons button:hover {
+    background-color: rgba(26, 115, 232, 0.05);
+    color: var(--primary);
+  }
+  
+  .time-buttons button.active {
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .trending-papers-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .trending-paper-card {
+    background-color: var(--background-paper);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-standard), box-shadow var(--transition-standard);
+    height: 100%;
+  }
+  
+  .trending-paper-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .paper-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .paper-category {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .paper-stats {
+    display: flex;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+  
+  .paper-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: var(--spacing-sm);
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+  }
+  
+  .paper-title:hover {
+    color: var(--primary);
+  }
+  
+  .paper-authors {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .paper-abstract {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+  }
+  
+  .read-more-link {
+    display: inline-block;
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-top: auto;
+  }
+  
+  .read-more-link:hover {
+    text-decoration: underline;
+  }
+  
+  .trending-papers-loading,
+  .trending-papers-error,
+  .no-papers-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+    background-color: var(--background-paper);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .trending-papers-error {
+    color: var(--danger);
+  }
+  
+  .no-papers-message {
+    color: var(--text-secondary);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .trending-papers-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-md);
+    }
+    
+    .trending-filters {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .filter-group {
+      width: 100%;
+    }
+    
+    .category-select {
+      width: 100%;
+    }
+    
+    .time-buttons {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .paper-status {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-right: 8px;
+  }
+  
+  .status-draft {
+    background-color: rgba(95, 99, 104, 0.1);
+    color: #5f6368;
+  }
+  
+  .status-submitted {
+    background-color: rgba(26, 115, 232, 0.1);
+    color: #1a73e8;
+  }
+  
+  .status-under_review {
+    background-color: rgba(245, 124, 0, 0.1);
+    color: #f57c00;
+  }
+  
+  .status-published {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+  
+  .status-rejected {
+    background-color: rgba(211, 47, 47, 0.1);
+    color: #d32f2f;
+  }

@@ -73,8 +73,14 @@ function DashboardPage() {
           <div className="papers-grid">
             {papers.map(paper => (
               <div key={paper.id} className="paper-card">
-                <h3>{paper.title}</h3>
-                <p className="paper-status">Status: <span className={`status-${paper.status}`}>{paper.status}</span></p>
+                <div className="paper-header">
+                  <h3>{paper.title}</h3>
+                  {paper.status && (
+                    <div className={`paper-status status-${paper.status}`}>
+                      {paper.status}
+                    </div>
+                  )}
+                </div>
                 <p className="paper-abstract">{paper.abstract.substring(0, 150)}...</p>
                 <div className="paper-footer">
                   <span>Submitted: {new Date(paper.submitted_at).toLocaleDateString()}</span>

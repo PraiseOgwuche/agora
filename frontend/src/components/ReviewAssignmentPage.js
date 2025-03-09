@@ -1,3 +1,5 @@
+// frontend/src/components/ReviewAssignmentPage.js
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
@@ -15,6 +17,9 @@ function ReviewAssignmentPage() {
   const [currentReviewers, setCurrentReviewers] = useState([]);
   const [selectedReviewers, setSelectedReviewers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [assigningReviewers, setAssigningReviewers] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   
   // Check if user is staff
   useEffect(() => {
@@ -28,6 +33,7 @@ function ReviewAssignmentPage() {
     const fetchPaperAndReviewers = async () => {
       try {
         setLoading(true);
+        setError(null);
         
         // Fetch paper details
         const { data: paper, error: paperError } = await supabase
@@ -37,6 +43,7 @@ function ReviewAssignmentPage() {
             title,
             abstract,
             status,
+            submitted_at,
             categories(id, name)
           `)
           .eq('id', paperId)
@@ -53,7 +60,7 @@ function ReviewAssignmentPage() {
             reviewer_id,
             status,
             assigned_at,
-            profiles(id, full_name, email)
+            profiles(id, full_name, email, user_type)
           `)
           .eq('paper_id', paperId);
         
@@ -70,7 +77,7 @@ function ReviewAssignmentPage() {
         
         const authorIds = authors.map(author => author.author_id);
         
-        // Fetch potential reviewers (all users except authors)
+        // Fetch potential reviewers (all users except authors and already assigned reviewers)
         const { data: users, error: usersError } = await supabase
           .from('profiles')
           .select('id, full_name, email, user_type')
@@ -78,11 +85,16 @@ function ReviewAssignmentPage() {
           .order('full_name');
         
         if (usersError) throw usersError;
-        setPotentialReviewers(users || []);
+        
+        // Filter out users who are already assigned as reviewers
+        const currentReviewerIds = reviewers ? reviewers.map(r => r.reviewer_id) : [];
+        const filteredUsers = users.filter(user => !currentReviewerIds.includes(user.id));
+        
+        setPotentialReviewers(filteredUsers || []);
         
       } catch (error) {
         console.error('Error fetching data:', error);
-        alert('Error loading review assignment page');
+        setError('Failed to load paper and reviewer data. Please try again.');
       } finally {
         setLoading(false);
       }
@@ -103,12 +115,15 @@ function ReviewAssignmentPage() {
   
   const handleAssignReviewers = async () => {
     if (selectedReviewers.length === 0) {
-      alert('Please select at least one reviewer');
+      setError('Please select at least one reviewer');
       return;
     }
     
     try {
-      // Prepare assignments data
+      setAssigningReviewers(true);
+      setError(null);
+      
+      // Create an array of assignment objects
       const assignments = selectedReviewers.map(reviewerId => ({
         paper_id: paperId,
         reviewer_id: reviewerId,
@@ -116,46 +131,68 @@ function ReviewAssignmentPage() {
         assigned_at: new Date().toISOString()
       }));
       
-      // Insert assignments
-      const { error } = await supabase
+      // Insert assignments into the database
+      const { error: assignmentError } = await supabase
         .from('review_assignments')
         .insert(assignments);
       
-      if (error) throw error;
+      if (assignmentError) throw assignmentError;
       
-      // Update paper status if not already under review
-      if (paper.status === 'submitted') {
-        await supabase
+      // Update paper status if it's not already under review
+      if (paper.status === 'submitted' || paper.status === 'draft') {
+        const { error: updateError } = await supabase
           .from('papers')
           .update({ status: 'under_review' })
           .eq('id', paperId);
+          
+        if (updateError) throw updateError;
       }
       
-      alert('Reviewers assigned successfully');
-      
       // Refresh the current reviewers list
-      const { data: updatedReviewers } = await supabase
+      const { data: updatedReviewers, error: refreshError } = await supabase
         .from('review_assignments')
         .select(`
           id,
           reviewer_id,
           status,
           assigned_at,
-          profiles(id, full_name, email)
+          profiles(id, full_name, email, user_type)
         `)
         .eq('paper_id', paperId);
       
+      if (refreshError) throw refreshError;
+      
       setCurrentReviewers(updatedReviewers || []);
       setSelectedReviewers([]);
+      setSuccess(`${selectedReviewers.length} reviewer${selectedReviewers.length > 1 ? 's' : ''} assigned successfully`);
+      
+      // Remove assigned reviewers from potential reviewers
+      const updatedPotentialReviewers = potentialReviewers.filter(
+        reviewer => !selectedReviewers.includes(reviewer.id)
+      );
+      setPotentialReviewers(updatedPotentialReviewers);
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSuccess(null);
+      }, 3000);
       
     } catch (error) {
       console.error('Error assigning reviewers:', error);
-      alert('Failed to assign reviewers');
+      setError('Failed to assign reviewers. Please try again.');
+    } finally {
+      setAssigningReviewers(false);
     }
   };
   
   const handleRemoveReviewer = async (assignmentId) => {
     try {
+      setError(null);
+      
+      // Get reviewer info before deleting (to add back to potential reviewers)
+      const reviewerToRemove = currentReviewers.find(r => r.id === assignmentId);
+      
+      // Delete the assignment
       const { error } = await supabase
         .from('review_assignments')
         .delete()
@@ -166,20 +203,28 @@ function ReviewAssignmentPage() {
       // Update the current reviewers list
       setCurrentReviewers(currentReviewers.filter(r => r.id !== assignmentId));
       
+      // Add the removed reviewer back to potential reviewers
+      if (reviewerToRemove) {
+        const reviewerProfile = reviewerToRemove.profiles;
+        if (reviewerProfile && !potentialReviewers.some(r => r.id === reviewerProfile.id)) {
+          setPotentialReviewers([...potentialReviewers, reviewerProfile]);
+        }
+      }
+      
+      setSuccess('Reviewer removed successfully');
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSuccess(null);
+      }, 3000);
+      
     } catch (error) {
       console.error('Error removing reviewer:', error);
-      alert('Failed to remove reviewer');
+      setError('Failed to remove reviewer. Please try again.');
     }
   };
   
   const filteredReviewers = potentialReviewers.filter(reviewer => {
-    // Exclude users who are already assigned
-    const isAlreadyAssigned = currentReviewers.some(
-      r => r.reviewer_id === reviewer.id
-    );
-    
-    if (isAlreadyAssigned) return false;
-    
     // Filter by search term
     if (searchTerm) {
       return (
@@ -191,7 +236,7 @@ function ReviewAssignmentPage() {
     return true;
   });
   
-  if (loading) return <div className="loading">Loading...</div>;
+  if (loading) return <div className="loading">Loading assignment page...</div>;
   if (!paper) return <div className="not-found">Paper not found</div>;
   
   return (
@@ -203,11 +248,14 @@ function ReviewAssignmentPage() {
         </Link>
       </div>
       
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
+      
       <div className="paper-info">
         <h2>{paper.title}</h2>
         <div className="paper-meta">
-          <span className="category">{paper.categories.name}</span>
-          <span className="status">Status: {paper.status}</span>
+          <span className="category">{paper.categories?.name || 'Uncategorized'}</span>
+          <span className="status">{paper.status}</span>
         </div>
         <div className="paper-abstract">
           <h3>Abstract</h3>
@@ -223,8 +271,9 @@ function ReviewAssignmentPage() {
               {currentReviewers.map(assignment => (
                 <div key={assignment.id} className="reviewer-item">
                   <div className="reviewer-info">
-                    <div className="reviewer-name">{assignment.profiles.full_name}</div>
-                    <div className="reviewer-email">{assignment.profiles.email}</div>
+                    <div className="reviewer-name">{assignment.profiles?.full_name}</div>
+                    <div className="reviewer-email">{assignment.profiles?.email}</div>
+                    <div className="reviewer-type">{assignment.profiles?.user_type}</div>
                     <div className={`reviewer-status status-${assignment.status}`}>
                       {assignment.status}
                     </div>
@@ -290,8 +339,12 @@ function ReviewAssignmentPage() {
               <button 
                 onClick={handleAssignReviewers} 
                 className="btn primary"
+                disabled={assigningReviewers}
               >
-                Assign {selectedReviewers.length} Reviewer{selectedReviewers.length !== 1 ? 's' : ''}
+                {assigningReviewers 
+                  ? 'Assigning...' 
+                  : `Assign ${selectedReviewers.length} Reviewer${selectedReviewers.length !== 1 ? 's' : ''}`
+                }
               </button>
             </div>
           )}
